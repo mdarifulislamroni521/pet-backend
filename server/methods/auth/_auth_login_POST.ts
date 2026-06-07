@@ -36,10 +36,13 @@ const authLoginPOST = async (req: ERequest, res: EResponse) => {
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '30d' });
 
     const response = {
-      access_token: token,
-      verifyed: true,
-      name: user.name,
-      email: user.email,
+      token: token,
+      user: {
+        id: user._id.toString(),
+        email: user.email,
+        name: user.name,
+        role: user.role
+      }
     };
 
     // Set cookie
@@ -48,7 +51,6 @@ const authLoginPOST = async (req: ERequest, res: EResponse) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      domain: `${req.host_name}`,
     });
     
     // Legacy token cookie for frontend backward compatibility
@@ -57,7 +59,6 @@ const authLoginPOST = async (req: ERequest, res: EResponse) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      domain: `${req.host_name}`,
     });
 
     res.cookie("user_name", user.name, {
@@ -65,7 +66,6 @@ const authLoginPOST = async (req: ERequest, res: EResponse) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      domain: `${req.host_name}`,
     });
 
     return res.status(201).json(response);

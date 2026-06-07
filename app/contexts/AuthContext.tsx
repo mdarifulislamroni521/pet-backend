@@ -26,12 +26,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`);
+        const token = localStorage.getItem('access_token');
+        const headers: HeadersInit = {
+          'Content-Type': 'application/json'
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`, {
+          headers,
+          credentials: 'omit'
+        });
+
         if (res.ok) {
           const userData = await res.json();
           setUser(userData);
         } else {
           setUser(null);
+          localStorage.removeItem('access_token');
         }
       } catch (error) {
         console.error('Failed to fetch user', error);
@@ -44,16 +57,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = (token: string, userData: User) => {
+    if (token) localStorage.setItem('access_token', token);
     setUser(userData);
   };
 
   const logout = async () => {
     try {
+      localStorage.removeItem('access_token');
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`, { method: 'POST' });
       setUser(null);
       window.location.href = '/login';
     } catch (error) {
       console.error('Logout failed', error);
+      // Fallback redirect
+      window.location.href = '/login';
     }
   };
 
