@@ -51,7 +51,7 @@ export default function PatientViewPage() {
   useEffect(() => {
     const fetchPatient = async () => {
       try {
-        const response = await fetch(`/api/patients/${params.id}`);
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setPatient(data);
@@ -78,7 +78,7 @@ export default function PatientViewPage() {
       
       try {
         setLoadingAppointments(true);
-        const response = await fetch('/api/appointments');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
         if (response.ok) {
           const data = await response.json();
           // Filter appointments for this patient by patientId or patientName
@@ -111,7 +111,7 @@ export default function PatientViewPage() {
       console.log('Fetching AI results for patient:', patientId, 'Type:', typeof patientId);
       
       // First, let's check what's in the database
-      const debugResponse = await fetch(`/api/ai-results/debug?patientId=${patientId}`);
+      const debugResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results/debug?patientId=${patientId}`);
       if (debugResponse.ok) {
         const debugData = await debugResponse.json();
         console.log('=== DEBUG: All AI Results in DB ===');
@@ -121,7 +121,7 @@ export default function PatientViewPage() {
       }
       
       // Then fetch normally
-      const response = await fetch(`/api/ai-results?patientId=${patientId}`);
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results?patientId=${patientId}`);
       if (response.ok) {
         const data = await response.json();
         console.log('AI results fetched:', data.results?.length || 0, 'results');
@@ -151,7 +151,7 @@ export default function PatientViewPage() {
     }
 
     try {
-      const response = await fetch(`/api/ai-results?id=${resultId}`, {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results?id=${resultId}`, {
         method: 'DELETE',
       });
 

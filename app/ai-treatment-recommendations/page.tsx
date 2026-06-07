@@ -81,7 +81,7 @@ export default function AITreatmentRecommendationsPage() {
     const fetchData = async () => {
       try {
         // Fetch pets
-        const response = await fetch('/api/pets');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           setPets(data);
@@ -317,7 +317,7 @@ Format your response for medical professionals to review and make final diagnosi
     try {
       const patientId = String(selectedPetId); // Ensure it's a string
       console.log('Saving AI result:', { patientId, type, title, patientIdType: typeof patientId });
-      const response = await fetch('/api/ai-results', {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -687,7 +687,7 @@ Create a clean, professional prescription using only the actual information prov
   const loadWorkflowState = async (workflowId: string) => {
     try {
       console.log('Loading workflow state for ID:', workflowId);
-      const response = await fetch(`/api/workflows/${workflowId}`);
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workflows/${workflowId}`);
       console.log('Workflow response status:', response.status);
       
       if (response.ok) {

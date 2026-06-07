@@ -106,7 +106,7 @@ export default function NewPatientPage() {
       console.log('Form data being sent:', patientData);
       console.log('Emergency contact data:', patientData.emergencyContact);
 
-      const response = await fetch('/api/patients', {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

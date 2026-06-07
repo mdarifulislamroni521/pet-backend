@@ -99,7 +99,7 @@ export default function AIAppointmentOptimizerPage() {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('/api/pets');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           setPets(data);
@@ -228,7 +228,7 @@ export default function AIAppointmentOptimizerPage() {
 
     try {
       console.log('Saving AI result:', { patientId: selectedPetId, type, title });
-      const response = await fetch('/api/ai-results', {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

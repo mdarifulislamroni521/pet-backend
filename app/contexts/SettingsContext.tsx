@@ -117,7 +117,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   const fetchSettings = useCallback(async () => {
     try {
-      const response = await fetch('/api/settings');
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/settings`);
       if (response.ok) {
         const data = await response.json();
         setSettings(data);
@@ -137,7 +137,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   const updateSettings = async (updates: Partial<Settings>) => {
     try {
-      const response = await fetch('/api/settings', {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -43,7 +43,7 @@ export default function ActivityPage() {
     const fetchActivities = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/activity');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/activity`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch activities');

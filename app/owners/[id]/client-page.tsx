@@ -64,7 +64,7 @@ export default function OwnerViewPage() {
   useEffect(() => {
     const fetchOwner = async () => {
       try {
-        const response = await fetch(`/api/owners/${params.id}`);
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/owners/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setOwner(data);

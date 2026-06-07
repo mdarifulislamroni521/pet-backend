@@ -32,7 +32,7 @@ export default function PetsPage() {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('/api/pets');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           setPets(data);
@@ -106,7 +106,7 @@ export default function PetsPage() {
       : `Are you sure you want to delete ${pet.name}?`;
     if (confirm(confirmMessage)) {
       try {
-        const response = await fetch(`/api/pets/${pet._id}`, {
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${pet._id}`, {
           method: 'DELETE',
         });
         if (response.ok) {

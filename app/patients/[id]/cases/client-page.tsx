@@ -42,7 +42,7 @@ export default function PatientCasesPage() {
       try {
         console.log('Fetching patient data...');
         // Fetch patient data
-        const patientResponse = await fetch(`/api/patients/${params.id}`);
+        const patientResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients/${params.id}`);
         if (patientResponse.ok) {
           const patientData = await patientResponse.json();
           console.log('Patient data:', patientData);
@@ -51,7 +51,7 @@ export default function PatientCasesPage() {
 
         console.log('Fetching workflows...');
         // Fetch workflows for this patient
-        const workflowsResponse = await fetch(`/api/workflows?patientId=${params.id}`);
+        const workflowsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/workflows?patientId=${params.id}`);
         if (workflowsResponse.ok) {
           const workflowsData = await workflowsResponse.json();
           console.log('Workflows data:', workflowsData);

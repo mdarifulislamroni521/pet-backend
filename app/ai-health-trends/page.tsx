@@ -78,21 +78,21 @@ export default function AIHealthTrendsPage() {
       setIsLoadingData(true);
       try {
         // Fetch patients
-        const patientsResponse = await fetch('/api/patients');
+        const patientsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients`);
         let patients: any[] = [];
         if (patientsResponse.ok) {
           patients = await patientsResponse.json();
         }
 
         // Fetch appointments
-        const appointmentsResponse = await fetch('/api/appointments');
+        const appointmentsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
         let appointments: any[] = [];
         if (appointmentsResponse.ok) {
           appointments = await appointmentsResponse.json();
         }
 
         // Fetch AI results
-        const aiResultsResponse = await fetch('/api/ai-results/debug');
+        const aiResultsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results/debug`);
         let aiResults: any[] = [];
         if (aiResultsResponse.ok) {
           const aiData = await aiResultsResponse.json();

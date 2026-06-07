@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch('/api/auth/me');
+        const res = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`);
         if (res.ok) {
           const userData = await res.json();
           setUser(userData);
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`, { method: 'POST' });
       setUser(null);
       window.location.href = '/login';
     } catch (error) {

@@ -67,7 +67,7 @@ export default function SearchablePatientSelect({
   const searchPatients = async (query: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/patients/search?q=${encodeURIComponent(query)}&limit=20`);
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients/search?q=${encodeURIComponent(query)}&limit=20`);
       if (response.ok) {
         const data = await response.json();
         setPatients(data);

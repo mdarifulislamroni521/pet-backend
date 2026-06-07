@@ -48,7 +48,7 @@ export default function NewReportPage() {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await fetch('/api/pets');
+        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           setPets(data);
@@ -132,7 +132,7 @@ export default function NewReportPage() {
         doctorId: 'default-doctor-id' // Will be overridden by session in API if available
       };
 
-      const response = await fetch('/api/reports', {
+      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
