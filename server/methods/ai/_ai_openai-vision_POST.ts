@@ -53,9 +53,8 @@ export async function POST(req: ERequest, res: EResponse) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('OpenAI Vision API error:', errorData);
-      return res.status(200).json(
-        { error: `OpenAI Vision API error: ${errorData.error?.message || response.statusText}` },
-        { status: response.status }
+      return res.status(response.status || 500).json(
+        { error: `OpenAI Vision API error: ${errorData.error?.message || response.statusText}` }
       );
     }
 
@@ -63,11 +62,11 @@ export async function POST(req: ERequest, res: EResponse) {
     const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
-      return res.json(
+      return res.status(500).json(
         { error: 'No response content from OpenAI Vision API' });
     }
 
-    return res.status(500).json({
+    return res.status(200).json({
       content,
       model: data.model,
       usage: data.usage,
@@ -76,7 +75,7 @@ export async function POST(req: ERequest, res: EResponse) {
 
   } catch (error) {
     console.error('OpenAI Vision API error:', error);
-    return res.json(
+    return res.status(500).json(
       { error: 'Internal server error' });
   }
 }

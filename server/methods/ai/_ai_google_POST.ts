@@ -60,9 +60,8 @@ ${prompt}`
 
     if (!response.ok) {
       const errorData = await response.json();
-      return res.status(200).json(
-        { error: `Google API error: ${errorData.error?.message || response.statusText}` },
-        { status: response.status }
+      return res.status(response.status || 500).json(
+        { error: `Google API error: ${errorData.error?.message || response.statusText}` }
       );
     }
 
@@ -70,11 +69,11 @@ ${prompt}`
     const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!content) {
-      return res.json(
+      return res.status(500).json(
         { error: 'No response content from Google' });
     }
 
-    return res.status(500).json({
+    return res.status(200).json({
       content,
       model: data.model,
       usageMetadata: data.usageMetadata,
@@ -83,7 +82,7 @@ ${prompt}`
 
   } catch (error) {
     console.error('Google API error:', error);
-    return res.json(
+    return res.status(500).json(
       { error: 'Internal server error' });
   }
 }

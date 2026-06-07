@@ -37,9 +37,8 @@ export async function POST(req: ERequest, res: EResponse) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      return res.status(200).json(
-        { error: `Anthropic API error: ${errorData.error?.message || response.statusText}` },
-        { status: response.status }
+      return res.status(response.status || 500).json(
+        { error: `Anthropic API error: ${errorData.error?.message || response.statusText}` }
       );
     }
 
@@ -47,11 +46,11 @@ export async function POST(req: ERequest, res: EResponse) {
     const content = data.content?.[0]?.text;
 
     if (!content) {
-      return res.json(
+      return res.status(500).json(
         { error: 'No response content from Anthropic' });
     }
 
-    return res.status(500).json({
+    return res.status(200).json({
       content,
       model: data.model,
       usage: data.usage,
@@ -60,7 +59,7 @@ export async function POST(req: ERequest, res: EResponse) {
 
   } catch (error) {
     console.error('Anthropic API error:', error);
-    return res.json(
+    return res.status(500).json(
       { error: 'Internal server error' });
   }
 }
