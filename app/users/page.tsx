@@ -1,25 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { useAuth } from '../contexts/AuthContext';
-import { 
-  User, 
-  Search, 
-  Plus, 
-  Eye, 
-  Edit, 
-  Trash2, 
+import {
+  Edit,
   Mail,
+  Plus,
+  Search,
   Shield,
   Stethoscope,
-  Users as UsersIcon,
-  UserCircle
+  Trash2,
+  User,
+  UserCircle,
+  Users as UsersIcon
 } from 'lucide-react';
-import ProtectedRoute from '../protected-route';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import SidebarLayout from '../components/sidebar-layout';
+import { useAuth } from '../contexts/AuthContext';
 import { useTranslations } from '../hooks/useTranslations';
+import ProtectedRoute from '../protected-route';
 
 interface UserData {
   _id: string;
@@ -69,15 +68,8 @@ export default function UsersPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Check if user is admin
-    if (session?.user?.role !== 'admin') {
-      setError(t('users.accessDeniedMessage'));
-      setLoading(false);
-      return;
-    }
-
     fetchUsers();
-  }, [session]);
+  }, [user?.id]);
 
   const fetchUsers = async () => {
     try {

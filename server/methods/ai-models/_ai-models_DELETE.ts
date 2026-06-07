@@ -8,7 +8,7 @@ export async function GET(req: ERequest, res: EResponse) {
     await dbConnect();
     const models = await AIModel.find({}).sort({ createdAt: -1 });
     
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       data: models,
       count: models.length
@@ -118,7 +118,7 @@ export async function PUT(req: ERequest, res: EResponse) {
     }
 
     console.log('Model updated successfully:', { id: updatedModel.id, name: updatedModel.name });
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       data: updatedModel,
       message: 'AI model updated successfully'
@@ -160,7 +160,7 @@ export async function DELETE(req: ERequest, res: EResponse) {
         });
     }
 
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       message: 'AI model deleted successfully'
     });

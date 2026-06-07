@@ -12,7 +12,7 @@ export async function GET(req: ERequest, res: EResponse) {
 
     await dbConnect();
     const patients = await Patient.find({}).sort({ createdAt: -1 });
-    return res.status(400).json(patients);
+    return res.status(200).json(patients);
   } catch (error: any) {
     console.error('Error fetching patients:', error);
 

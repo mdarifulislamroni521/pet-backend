@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsx server.ts",
+    "dev": "tsx watch server.ts",
     "build": "next build --turbopack",
     "build:vercel": "SKIP_LINTING=true SKIP_TYPE_CHECK=true next build --turbopack",
     "start": "NODE_ENV=production tsx server.ts",

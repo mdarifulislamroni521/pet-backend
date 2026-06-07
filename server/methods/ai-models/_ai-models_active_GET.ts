@@ -8,7 +8,7 @@ export async function GET(req: ERequest, res: EResponse) {
     await dbConnect();
     const activeModel = await AIModel.findOne({ isActive: true });
     
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       data: activeModel
     });
@@ -55,7 +55,7 @@ export async function POST(req: ERequest, res: EResponse) {
         });
     }
 
-    return res.status(500).json({
+    return res.status(200).json({
       success: true,
       data: activeModel,
       message: 'Active AI model set successfully'
