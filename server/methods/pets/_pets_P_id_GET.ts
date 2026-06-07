@@ -1,10 +1,10 @@
 
 import dbConnect from '@/lib/mongodb';
 import Pet from '@/models/Pet';
-
+import { ERequest, EResponse } from '../../types';
 export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  req: ERequest,
+  res: EResponse
 ) {
   try {
     const authUser = req.authResponse;
@@ -14,7 +14,7 @@ export async function GET(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const { id } = await req.params;
     const pet = await Pet.findById(id);
     
     if (!pet) {
@@ -31,8 +31,8 @@ export async function GET(
 }
 
 export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  req: ERequest,
+  res: EResponse
 ) {
   try {
     const authUser = req.authResponse;
@@ -44,7 +44,7 @@ export async function PUT(
     await dbConnect();
     const body = req.body;
     
-    const { id } = await params;
+    const { id } = await req.params;
     const pet = await Pet.findByIdAndUpdate(
       id,
       body,
@@ -65,8 +65,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  req: ERequest,
+  res: EResponse
 ) {
   try {
     const authUser = req.authResponse;
@@ -76,7 +76,7 @@ export async function DELETE(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const { id } = req.params;
     const pet = await Pet.findByIdAndDelete(id);
     
     if (!pet) {

@@ -186,7 +186,7 @@ export async function GET(req: ERequest, res: EResponse) {
     
     console.log('Formatted upcoming appointments:', formattedUpcomingAppointments);
 
-    return res.status(500).json({
+    return res.status(200).json({
       stats,
       recentActivities,
       upcomingAppointments: formattedUpcomingAppointments
