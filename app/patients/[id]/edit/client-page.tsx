@@ -47,7 +47,7 @@ export default function PatientEditPage() {
   useEffect(() => {
     const fetchPatient = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/patients/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setPatient(data);
@@ -110,7 +110,7 @@ export default function PatientEditPage() {
     setSuccess('');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/patients/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

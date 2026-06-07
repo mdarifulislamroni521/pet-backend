@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           headers['Authorization'] = `Bearer ${token}`;
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/me`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/auth/me`, {
           headers,
           credentials: 'omit'
         });
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       localStorage.removeItem('access_token');
-      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`, { method: 'POST' });
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/auth/logout`, { method: 'POST' });
       setUser(null);
       window.location.href = '/login';
     } catch (error) {

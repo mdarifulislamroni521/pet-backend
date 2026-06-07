@@ -145,7 +145,7 @@ export default function NewPetPage() {
       if (formData.assignedVet) petData.assignedVet = formData.assignedVet;
       if (formData.notes) petData.notes = formData.notes;
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

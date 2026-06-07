@@ -47,7 +47,7 @@ export default function OwnersPage() {
 
   const fetchOwners = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/owners`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/owners`);
       if (response.ok) {
         const data = await response.json();
         setOwners(data);
@@ -65,7 +65,7 @@ export default function OwnersPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/owners/${ownerId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/owners/${ownerId}`, {
         method: 'DELETE',
       });
 

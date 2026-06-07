@@ -39,7 +39,7 @@ export default function ReportEditPage() {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/reports/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setReport(data);
@@ -87,7 +87,7 @@ export default function ReportEditPage() {
     setSuccess('');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/reports/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

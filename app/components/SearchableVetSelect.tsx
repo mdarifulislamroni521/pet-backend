@@ -68,7 +68,7 @@ export default function SearchableVetSelect({
   const searchVeterinarians = async (query: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/veterinarians?search=${encodeURIComponent(query)}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/veterinarians?search=${encodeURIComponent(query)}`);
       if (response.ok) {
         const data = await response.json();
         setVeterinarians(data);

@@ -29,7 +29,7 @@ export default function ReportDetailsPage() {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/reports/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setReport(data);
@@ -204,7 +204,7 @@ export default function ReportDetailsPage() {
     
     if (confirm(`Are you sure you want to delete the report "${report.reportType || 'Report'}"?`)) {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports/${params.id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/reports/${params.id}`, {
           method: 'DELETE',
         });
 

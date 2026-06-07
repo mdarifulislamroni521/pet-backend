@@ -84,7 +84,7 @@ export default function SearchablePetSelect({
   const searchPets = async (query: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/search?q=${encodeURIComponent(query)}&limit=20`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets/search?q=${encodeURIComponent(query)}&limit=20`);
       if (response.ok) {
         const data = await response.json();
         setPets(data);

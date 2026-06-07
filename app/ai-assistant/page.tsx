@@ -122,13 +122,13 @@ export default function AIAssistantPage() {
       let response;
       if (petName) {
         // Search for specific pet
-        response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/search?q=${encodeURIComponent(petName)}&limit=5`);
+        response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets/search?q=${encodeURIComponent(petName)}&limit=5`);
         if (response.ok) {
           const searchResults = await response.json();
           if (searchResults && searchResults.length > 0) {
             // Fetch full pet details using the pet ID
             const petId = searchResults[0]._id;
-            const fullResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${petId}`);
+            const fullResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets/${petId}`);
             if (fullResponse.ok) {
               return await fullResponse.json();
             }
@@ -139,7 +139,7 @@ export default function AIAssistantPage() {
         return null;
       } else {
         // Get all pets
-        response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
+        response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           return Array.isArray(data) ? data : (data.pets || []);
@@ -259,7 +259,7 @@ export default function AIAssistantPage() {
             // Fetch AI results for this pet (treatment plans, risk assessments, etc.)
             let aiResults: any[] = [];
             try {
-              const aiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results?petId=${petData._id}`);
+              const aiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/ai-results?petId=${petData._id}`);
               if (aiResponse.ok) {
                 const aiData = await aiResponse.json();
                 aiResults = aiData.results || [];

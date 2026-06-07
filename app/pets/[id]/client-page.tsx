@@ -43,7 +43,7 @@ export default function PetViewPage() {
   useEffect(() => {
     const fetchPet = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/pets/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setPet(data);
@@ -70,7 +70,7 @@ export default function PetViewPage() {
       
       try {
         setLoadingAppointments(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8989"}/api/appointments`);
         if (response.ok) {
           const data = await response.json();
           // Filter appointments for this pet
