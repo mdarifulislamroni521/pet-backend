@@ -57,7 +57,7 @@ export default function AIMedicalImagePage() {
     const fetchData = async () => {
       try {
         // Fetch pets
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (response.ok) {
           const data = await response.json();
           setPets(data);
@@ -123,7 +123,7 @@ export default function AIMedicalImagePage() {
 
     try {
       console.log('Saving AI result:', { patientId: selectedPetId, type, title });
-      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -62,14 +62,14 @@ export default function AIRiskAssessmentPage() {
     const fetchData = async () => {
       try {
         // Fetch pets
-        const petsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
+        const petsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets`);
         if (petsResponse.ok) {
           const petsData = await petsResponse.json();
           setPets(petsData);
         }
 
         // Fetch risk assessment results using debug endpoint (supports fetching by type without patientId)
-        const riskResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results/debug?type=risk-assessment`);
+        const riskResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results/debug?type=risk-assessment`);
         if (riskResponse.ok) {
           const debugData = await riskResponse.json();
           const riskData = debugData.allResults || [];
@@ -214,7 +214,7 @@ export default function AIRiskAssessmentPage() {
 
     try {
       console.log('Saving AI result:', { patientId: selectedPetId, type, title });
-      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ai-results`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

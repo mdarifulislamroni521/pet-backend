@@ -28,7 +28,7 @@ export default function AppointmentViewPage() {
   useEffect(() => {
     const fetchAppointment = async () => {
       try {
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setAppointment(data);

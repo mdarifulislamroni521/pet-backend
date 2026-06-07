@@ -53,14 +53,14 @@ export default function AIHealthAnalyticsPage() {
         setActiveModel(activeModelData);
         
         // Fetch patients count
-        const patientsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients`);
+        const patientsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patients`);
         if (patientsResponse.ok) {
           const patients = await patientsResponse.json();
           setRealData(prev => ({ ...prev, totalPatients: patients.length }));
         }
 
         // Fetch appointments count
-        const appointmentsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
+        const appointmentsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
         if (appointmentsResponse.ok) {
           const appointments = await appointmentsResponse.json();
           const today = new Date().toDateString();
@@ -71,7 +71,7 @@ export default function AIHealthAnalyticsPage() {
         }
 
         // Fetch reports count
-        const reportsResponse = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`);
+        const reportsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`);
         if (reportsResponse.ok) {
           const reports = await reportsResponse.json();
           const pendingReports = reports.filter((r: any) => r.status === 'pending');

@@ -201,7 +201,7 @@ export default function NewAppointmentPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

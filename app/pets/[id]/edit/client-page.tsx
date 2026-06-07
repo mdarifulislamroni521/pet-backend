@@ -59,7 +59,7 @@ export default function EditPetPage() {
         // Note: Veterinarians are fetched by SearchableVetSelect component
 
         // Fetch pet data
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${params.id}`);
         if (response.ok) {
           const pet = await response.json();
           setFormData({
@@ -148,7 +148,7 @@ export default function EditPetPage() {
       if (formData.assignedVet) petData.assignedVet = formData.assignedVet;
       if (formData.notes) petData.notes = formData.notes;
 
-      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${params.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pets/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

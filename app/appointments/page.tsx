@@ -30,7 +30,7 @@ export default function AppointmentsPage() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments`);
         if (response.ok) {
           const data = await response.json();
           setAppointments(data);
@@ -132,7 +132,7 @@ export default function AppointmentsPage() {
   const handleCancelAppointment = async (appointment: any) => {
     if (confirm(`Are you sure you want to cancel the appointment for ${appointment.patientName}?`)) {
       try {
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${appointment._id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${appointment._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export default function AppointmentsPage() {
   const handleDeleteAppointment = async (appointment: any) => {
     if (confirm(`Are you sure you want to permanently delete the appointment for ${appointment.patientName}? This action cannot be undone.`)) {
       try {
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${appointment._id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointments/${appointment._id}`, {
           method: 'DELETE',
         });
 

@@ -29,7 +29,7 @@ export default function ReportsPage() {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reports`);
         if (response.ok) {
           const data = await response.json();
           setReports(data);

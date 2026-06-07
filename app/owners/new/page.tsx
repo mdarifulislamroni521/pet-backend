@@ -77,7 +77,7 @@ export default function NewOwnerPage() {
         };
       }
 
-      const response = await fetch(`\${process.env.NEXT_PUBLIC_API_BASE_URL}/api/owners`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/owners`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(ownerData),
