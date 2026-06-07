@@ -28,8 +28,8 @@ interface UserData {
 export default function EditUserPage() {
   const params = useParams();
   const router = useRouter();
-  const { user, logout } = useAuth();
-  const session = user ? { user } : null;
+  const { user: authUser, logout } = useAuth();
+  const session = authUser ? { user: authUser } : null;
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState<UserData | null>(null);

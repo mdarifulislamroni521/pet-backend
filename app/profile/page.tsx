@@ -18,7 +18,8 @@ import Link from 'next/link';
 import { useTranslations } from '../hooks/useTranslations';
 
 export default function ProfilePage() {
-  const { data: session, update } = useSession();
+  const { user: authUser, login } = useAuth();
+  const session = authUser ? { user: authUser } : null;
   const router = useRouter();
   const { t } = useTranslations();
   const [loading, setLoading] = useState(false);
@@ -75,14 +76,13 @@ export default function ProfilePage() {
       if (response.ok) {
         setMessage({ type: 'success', text: t('profile.profileUpdated') });
         // Update the session
-        await update({
-          ...session,
-          user: {
-            ...session?.user,
+        if (authUser) {
+          login('', {
+            ...authUser,
             name: formData.name,
             email: formData.email,
-          }
-        });
+          });
+        }
       } else {
         setMessage({ type: 'error', text: data.error || t('profile.profileUpdateError') });
       }
