@@ -1,6 +1,6 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import AIModel from '@/models/AIModel';
+import { ERequest, EResponse } from "../../types";
 
 // Test endpoint to verify database connection and basic operations
 export async function GET(req: ERequest, res: EResponse) {

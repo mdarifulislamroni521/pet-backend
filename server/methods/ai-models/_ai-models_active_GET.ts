@@ -1,6 +1,6 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import AIModel from '@/models/AIModel';
+import { ERequest, EResponse } from "../../types";
 
 // GET active AI model
 export async function GET(req: ERequest, res: EResponse) {

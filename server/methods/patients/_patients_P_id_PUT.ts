@@ -1,4 +1,3 @@
-import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Patient from '@/models/Patient';
@@ -23,7 +22,7 @@ export async function GET(
         { error: 'Patient not found' });
     }
     
-    return res.status(500).json(patient);
+    return res.status(200).json(patient);
   } catch (error) {
     console.error('Error fetching patient:', error);
     return res.json(
@@ -57,7 +56,7 @@ export async function PUT(
         { error: 'Patient not found' });
     }
     
-    return res.status(500).json(patient);
+    return res.status(200).json(patient);
   } catch (error) {
     console.error('Error updating patient:', error);
     return res.json(

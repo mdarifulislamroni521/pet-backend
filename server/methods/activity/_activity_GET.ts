@@ -1,10 +1,8 @@
-import { getServerSession } from 'next-auth';
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import Appointment from '@/models/Appointment';
 import Patient from '@/models/Patient';
 import Report from '@/models/Report';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {

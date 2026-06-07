@@ -1,70 +1,73 @@
-import { ERoutes } from "../types";
 import { authValidator } from "../helpers/validation";
+import { ERoutes } from "../types";
 
 import { GET as handler_0 } from "../methods/activity/_activity_GET";
-import { POST as handler_1 } from "../methods/ai/_ai_anthropic_POST";
-import { POST as handler_2 } from "../methods/ai/_ai_anthropic-vision_POST";
-import { POST as handler_3 } from "../methods/ai/_ai_google_POST";
-import { POST as handler_4 } from "../methods/ai/_ai_google-vision_POST";
-import { POST as handler_5 } from "../methods/ai/_ai_openai_POST";
-import { POST as handler_6 } from "../methods/ai/_ai_openai-vision_POST";
 import { GET as handler_7 } from "../methods/ai-models/_ai-models_active_GET";
 import { POST as handler_8 } from "../methods/ai-models/_ai-models_active_POST";
+import { DELETE as handler_12 } from "../methods/ai-models/_ai-models_DELETE";
 import { GET as handler_9 } from "../methods/ai-models/_ai-models_GET";
 import { POST as handler_10 } from "../methods/ai-models/_ai-models_POST";
 import { PUT as handler_11 } from "../methods/ai-models/_ai-models_PUT";
-import { DELETE as handler_12 } from "../methods/ai-models/_ai-models_DELETE";
 import { GET as handler_13 } from "../methods/ai-models/_ai-models_test_GET";
 import { POST as handler_14 } from "../methods/ai-models/_ai-models_test_POST";
 import { GET as handler_15 } from "../methods/ai-results/_ai-results_debug_GET";
+import { DELETE as handler_18 } from "../methods/ai-results/_ai-results_DELETE";
 import { GET as handler_16 } from "../methods/ai-results/_ai-results_GET";
 import { POST as handler_17 } from "../methods/ai-results/_ai-results_POST";
-import { DELETE as handler_18 } from "../methods/ai-results/_ai-results_DELETE";
+import { POST as handler_2 } from "../methods/ai/_ai_anthropic-vision_POST";
+import { POST as handler_1 } from "../methods/ai/_ai_anthropic_POST";
+import { POST as handler_4 } from "../methods/ai/_ai_google-vision_POST";
+import { POST as handler_3 } from "../methods/ai/_ai_google_POST";
+import { POST as handler_6 } from "../methods/ai/_ai_openai-vision_POST";
+import { POST as handler_5 } from "../methods/ai/_ai_openai_POST";
+import { GET as handler_22 } from "../methods/appointments/_appointments_GET";
+import { DELETE as handler_21 } from "../methods/appointments/_appointments_P_id_DELETE";
 import { GET as handler_19 } from "../methods/appointments/_appointments_P_id_GET";
 import { PUT as handler_20 } from "../methods/appointments/_appointments_P_id_PUT";
-import { DELETE as handler_21 } from "../methods/appointments/_appointments_P_id_DELETE";
-import { GET as handler_22 } from "../methods/appointments/_appointments_GET";
 import { POST as handler_23 } from "../methods/appointments/_appointments_POST";
+import authLoginPOST from "../methods/auth/_auth_login_POST";
+import authLogoutPOST from "../methods/auth/_auth_logout_POST";
+import authMeGET from "../methods/auth/_auth_me_GET";
 import { GET as handler_24 } from "../methods/dashboard/_dashboard_GET";
 import { GET as handler_25 } from "../methods/demo-check/_demo-check_GET";
+import { GET as handler_29 } from "../methods/owners/_owners_GET";
+import { DELETE as handler_28 } from "../methods/owners/_owners_P_id_DELETE";
 import { GET as handler_26 } from "../methods/owners/_owners_P_id_GET";
 import { PUT as handler_27 } from "../methods/owners/_owners_P_id_PUT";
-import { DELETE as handler_28 } from "../methods/owners/_owners_P_id_DELETE";
-import { GET as handler_29 } from "../methods/owners/_owners_GET";
 import { POST as handler_30 } from "../methods/owners/_owners_POST";
 import { GET as handler_31 } from "../methods/owners/_owners_search_GET";
+import { GET as handler_35 } from "../methods/patients/_patients_GET";
+import { DELETE as handler_34 } from "../methods/patients/_patients_P_id_DELETE";
 import { GET as handler_32 } from "../methods/patients/_patients_P_id_GET";
 import { PUT as handler_33 } from "../methods/patients/_patients_P_id_PUT";
-import { DELETE as handler_34 } from "../methods/patients/_patients_P_id_DELETE";
-import { GET as handler_35 } from "../methods/patients/_patients_GET";
 import { POST as handler_36 } from "../methods/patients/_patients_POST";
 import { GET as handler_37 } from "../methods/patients/_patients_search_GET";
+import { GET as handler_41 } from "../methods/pets/_pets_GET";
+import { DELETE as handler_40 } from "../methods/pets/_pets_P_id_DELETE";
 import { GET as handler_38 } from "../methods/pets/_pets_P_id_GET";
 import { PUT as handler_39 } from "../methods/pets/_pets_P_id_PUT";
-import { DELETE as handler_40 } from "../methods/pets/_pets_P_id_DELETE";
-import { GET as handler_41 } from "../methods/pets/_pets_GET";
 import { POST as handler_42 } from "../methods/pets/_pets_POST";
 import { GET as handler_43 } from "../methods/pets/_pets_search_GET";
 import { PUT as handler_44 } from "../methods/profile/_profile_password_PUT";
 import { PUT as handler_45 } from "../methods/profile/_profile_PUT";
+import { GET as handler_49 } from "../methods/reports/_reports_GET";
+import { DELETE as handler_48 } from "../methods/reports/_reports_P_id_DELETE";
 import { GET as handler_46 } from "../methods/reports/_reports_P_id_GET";
 import { PUT as handler_47 } from "../methods/reports/_reports_P_id_PUT";
-import { DELETE as handler_48 } from "../methods/reports/_reports_P_id_DELETE";
-import { GET as handler_49 } from "../methods/reports/_reports_GET";
 import { POST as handler_50 } from "../methods/reports/_reports_POST";
 import { GET as handler_51 } from "../methods/settings/_settings_GET";
 import { PUT as handler_52 } from "../methods/settings/_settings_PUT";
 import { GET as handler_53 } from "../methods/test-db/_test-db_GET";
+import { GET as handler_57 } from "../methods/users/_users_GET";
+import { DELETE as handler_56 } from "../methods/users/_users_P_id_DELETE";
 import { GET as handler_54 } from "../methods/users/_users_P_id_GET";
 import { PUT as handler_55 } from "../methods/users/_users_P_id_PUT";
-import { DELETE as handler_56 } from "../methods/users/_users_P_id_DELETE";
-import { GET as handler_57 } from "../methods/users/_users_GET";
 import { POST as handler_58 } from "../methods/users/_users_POST";
 import { GET as handler_59 } from "../methods/veterinarians/_veterinarians_GET";
+import { GET as handler_63 } from "../methods/workflows/_workflows_GET";
+import { DELETE as handler_62 } from "../methods/workflows/_workflows_P_id_DELETE";
 import { GET as handler_60 } from "../methods/workflows/_workflows_P_id_GET";
 import { PUT as handler_61 } from "../methods/workflows/_workflows_P_id_PUT";
-import { DELETE as handler_62 } from "../methods/workflows/_workflows_P_id_DELETE";
-import { GET as handler_63 } from "../methods/workflows/_workflows_GET";
 import { POST as handler_64 } from "../methods/workflows/_workflows_POST";
 import { PUT as handler_65 } from "../methods/workflows/_workflows_PUT";
 
@@ -215,7 +218,7 @@ const main_routes: Array<ERoutes> = [
   },
   {
     path: "/api/dashboard",
-    method: "get",
+    method: "get", 
     response: handler_24,
     auth: authValidator(),
   },
@@ -464,6 +467,21 @@ const main_routes: Array<ERoutes> = [
     method: "put",
     response: handler_65,
     auth: authValidator(),
+  },
+  {
+    path: "/api/auth/login",
+    method: "post",
+    response: authLoginPOST,
+  },
+  {
+    path: "/api/auth/logout",
+    method: "post",
+    response: authLogoutPOST,
+  },
+  {
+    path: "/api/auth/me",
+    method: "get",
+    response: authMeGET,
   },
 ];
 

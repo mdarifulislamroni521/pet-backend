@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextRequest } from 'next/server';
 
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
@@ -67,7 +67,7 @@ export async function PUT(
         { error: 'Owner not found' });
     }
     
-    return res.status(500).json(owner);
+    return res.status(200).json(owner);
   } catch (error: any) {
     console.error('Error updating owner:', error);
     return res.json(

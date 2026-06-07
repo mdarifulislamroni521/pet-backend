@@ -36,7 +36,7 @@ export async function GET(req: ERequest, res: EResponse) {
       .limit(limit)
       .sort({ name: 1 });
 
-    return res.status(500).json(veterinarians);
+    return res.status(200).json(veterinarians);
   } catch (error) {
     console.error('Error fetching veterinarians:', error);
     return res.json(

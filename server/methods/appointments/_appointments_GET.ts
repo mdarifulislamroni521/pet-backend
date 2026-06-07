@@ -1,7 +1,7 @@
-import { hasPermission, UserRole } from "@/lib/permissions";
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
+import { hasPermission, UserRole } from "@/lib/permissions";
 import Appointment from '@/models/Appointment';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {
@@ -12,7 +12,7 @@ export async function GET(req: ERequest, res: EResponse) {
 
     await dbConnect();
     const appointments = await Appointment.find({}).sort({ appointmentDate: -1 });
-    return res.status(500).json(appointments);
+    return res.status(200).json(appointments);
   } catch (error: any) {
     console.error('Error fetching appointments:', error);
 
@@ -54,7 +54,7 @@ export async function POST(req: ERequest, res: EResponse) {
       return res.status(403).json({ error: 'Forbidden: Insufficient permissions' });
     }
 
-    return res.status(500).json(
+    return res.status(200).json(
       { error: 'Failed to create appointment' });
   }
 }

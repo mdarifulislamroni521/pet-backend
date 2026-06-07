@@ -1,6 +1,6 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import Patient from '@/models/Patient';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {
@@ -29,7 +29,7 @@ export async function GET(req: ERequest, res: EResponse) {
       .limit(limit)
       .sort({ name: 1 });
     
-    return res.status(500).json(patients);
+    return res.status(200).json(patients);
   } catch (error) {
     console.error('Error searching patients:', error);
     return res.json(

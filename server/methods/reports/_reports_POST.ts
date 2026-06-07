@@ -1,8 +1,6 @@
-import { ERequest, EResponse } from "../../types";
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
 import dbConnect from '@/lib/mongodb';
 import Report from '@/models/Report';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {
@@ -71,7 +69,7 @@ export async function POST(req: ERequest, res: EResponse) {
         });
     }
     
-    return res.status(500).json(
+    return res.status(200).json(
       { 
         error: 'Failed to create report',
         message: error.message || 'Unknown error occurred'

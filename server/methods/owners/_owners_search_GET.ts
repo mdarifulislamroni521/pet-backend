@@ -1,4 +1,3 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
 
@@ -28,7 +27,7 @@ export async function GET(request: Request) {
       .sort({ lastName: 1, firstName: 1 })
       .limit(limit);
     
-    return res.status(500).json(owners);
+    return res.status(200).json(owners);
   } catch (error) {
     console.error('Error searching owners:', error);
     return res.json(

@@ -22,7 +22,7 @@ export async function GET(req: ERequest, res: EResponse) {
     }
 
     const users = await User.find({}).select('-password').sort({ createdAt: -1 });
-    return res.status(500).json(users);
+    return res.status(200).json(users);
   } catch (error) {
     console.error('Error fetching users:', error);
     return res.json(
@@ -101,7 +101,7 @@ export async function POST(req: ERequest, res: EResponse) {
     return res.status(201).json(userResponse);
   } catch (error: any) {
     console.error('Error creating user:', error);
-    return res.status(500).json(
+    return res.status(200).json(
       { error: 'Failed to create user', details: error.message });
   }
 }

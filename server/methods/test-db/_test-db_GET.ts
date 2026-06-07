@@ -1,5 +1,5 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {

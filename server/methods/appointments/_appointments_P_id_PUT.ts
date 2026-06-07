@@ -1,4 +1,3 @@
-import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Appointment from '@/models/Appointment';
@@ -23,7 +22,7 @@ export async function GET(
         { error: 'Appointment not found' });
     }
     
-    return res.status(500).json(appointment);
+    return res.status(200).json(appointment);
   } catch (error) {
     console.error('Error fetching appointment:', error);
     return res.json(
@@ -57,7 +56,7 @@ export async function PUT(
         { error: 'Appointment not found' });
     }
     
-    return res.status(500).json(appointment);
+    return res.status(200).json(appointment);
   } catch (error) {
     console.error('Error updating appointment:', error);
     return res.json(

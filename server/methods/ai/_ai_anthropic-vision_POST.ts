@@ -40,7 +40,7 @@ export async function POST(req: ERequest, res: EResponse) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Anthropic Vision API error:', errorData);
-      return res.status(500).json(
+      return res.status(200).json(
         { error: `Anthropic Vision API error: ${errorData.error?.message || response.statusText}` },
         { status: response.status }
       );

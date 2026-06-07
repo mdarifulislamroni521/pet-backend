@@ -18,11 +18,17 @@ export async function GET(req: ERequest, res: EResponse) {
     
     if (!settings) {
       // Create default settings if none exist
-      settings = new Settings({});
+      settings = new Settings({
+        systemTitle: 'AI Pet Clinic',
+        clinicName: 'AI Pet Clinic',
+        clinicAddress: '',
+        clinicEmail: '',
+        clinicPhone: '',
+      });
       await settings.save();
     }
 
-    return res.json(settings);
+    return res.status(200).json(settings);
 
   } catch (error) {
     console.error('Settings fetch error:', error);

@@ -1,4 +1,3 @@
-import { NextResponse, NextRequest } from 'next/server';
 
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
@@ -14,7 +13,7 @@ export async function GET(req: ERequest, res: EResponse) {
 
     await dbConnect();
     const owners = await Owner.find({}).sort({ createdAt: -1 });
-    return res.status(500).json(owners);
+    return res.status(200).json(owners);
   } catch (error) {
     console.error('Error fetching owners:', error);
     return res.json(
@@ -47,7 +46,7 @@ export async function POST(req: ERequest, res: EResponse) {
     return res.status(201).json(owner);
   } catch (error: any) {
     console.error('Error creating owner:', error);
-    return res.status(500).json(
+    return res.status(200).json(
       { error: 'Failed to create owner', details: error.message });
   }
 }

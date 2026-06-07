@@ -1,8 +1,6 @@
-import { ERequest, EResponse } from "../../types";
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
-import AIResult from '@/models/AIResult';
 import dbConnect from '@/lib/mongodb';
+import AIResult from '@/models/AIResult';
+import { ERequest, EResponse } from "../../types";
 
 // GET - Fetch AI results for a patient
 export async function GET(req: ERequest, res: EResponse) {
@@ -131,7 +129,7 @@ export async function DELETE(req: ERequest, res: EResponse) {
 
     console.log('AI result deleted successfully:', { id });
 
-    return res.status(200).json({ message: 'AI result deleted successfully' });
+    return res.status(500).json({ message: 'AI result deleted successfully' });
   } catch (error) {
     console.error('API Error deleting AI result:', error);
     return res.status(500).json({ 

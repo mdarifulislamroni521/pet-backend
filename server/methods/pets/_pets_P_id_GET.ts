@@ -1,4 +1,3 @@
-import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Pet from '@/models/Pet';
@@ -23,7 +22,7 @@ export async function GET(
         { error: 'Pet not found' });
     }
     
-    return res.status(500).json(pet);
+    return res.status(200).json(pet);
   } catch (error) {
     console.error('Error fetching pet:', error);
     return res.json(
@@ -57,7 +56,7 @@ export async function PUT(
         { error: 'Pet not found' });
     }
     
-    return res.status(500).json(pet);
+    return res.status(200).json(pet);
   } catch (error) {
     console.error('Error updating pet:', error);
     return res.json(

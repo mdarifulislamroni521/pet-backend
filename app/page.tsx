@@ -1,25 +1,25 @@
 'use client';
 
-import { useAuth } from './contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState, useRef, useCallback } from 'react';
-import Link from 'next/link';
-import ProtectedRoute from './protected-route';
-import SidebarLayout from './components/sidebar-layout';
-import { useTranslations } from './hooks/useTranslations';
-import { useSettings } from './contexts/SettingsContext';
-import { useLanguage } from './contexts/LanguageContext';
-import { 
-  PawPrint, 
-  Calendar, 
-  FileText, 
-  TrendingUp,
-  Clock,
+import {
   Activity,
   AlertCircle,
+  Calendar,
   CheckCircle,
-  Stethoscope
+  Clock,
+  FileText,
+  PawPrint,
+  TrendingUp
 } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import SidebarLayout from './components/sidebar-layout';
+import { useAuth } from './contexts/AuthContext';
+import { useLanguage } from './contexts/LanguageContext';
+import { useSettings } from './contexts/SettingsContext';
+import { useTranslations } from './hooks/useTranslations';
+import ProtectedRoute from './protected-route';
+import { dashboardGetUtils } from '../utils/authUtils';
 
 interface DashboardStats {
   name: string;
@@ -120,30 +120,21 @@ export default function DashboardPage() {
 
   // Fetch dashboard data
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      // Prevent multiple fetches
-      if (dataFetchedRef.current) return;
+    // Prevent multiple fetches
+    if (!translationsLoaded || dataFetchedRef.current) return;
+    
+    dataFetchedRef.current = true;
 
-      try {
-        setIsLoading(true);
-        dataFetchedRef.current = true;
-
-        const response = await fetch('/api/dashboard');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch dashboard data');
-        }
-
-        const data = await response.json();
-
+    const callbackDash = (success: boolean, response: any) => {
+      if (success) {
         // Store raw stats data for re-translation
-        setRawStatsData(data.stats || []);
+        setRawStatsData(response.stats || []);
 
         // Transform stats data with translations and icons
-        const transformedStats = translateStats(data.stats || []);
+        const transformedStats = translateStats(response.stats || []);
 
         // Transform recent activities with translations
-        const transformedActivities = data.recentActivities.map((activity: any) => {
+        const transformedActivities = (response.recentActivities || []).map((activity: any) => {
           let icon, color;
           switch (activity.type) {
             case 'appointment':
@@ -172,10 +163,10 @@ export default function DashboardPage() {
 
         setStats(transformedStats);
         setRecentActivities(transformedActivities);
-        setUpcomingAppointments(data.upcomingAppointments || []);
+        setUpcomingAppointments(response.upcomingAppointments || []);
         setError(null);
-      } catch (err) {
-        console.error('Error fetching dashboard data:', err);
+      } else {
+        console.error('Error fetching dashboard data:', response);
         setError('Failed to load dashboard data');
         // Set fallback data
         const fallbackStats = [
@@ -189,16 +180,11 @@ export default function DashboardPage() {
         setStats(translatedFallback);
         setRecentActivities([]);
         setUpcomingAppointments([]);
-      } finally {
-        setIsLoading(false);
       }
     };
 
-    // Only fetch if translations are loaded and we haven't fetched yet
-    if (translationsLoaded && !dataFetchedRef.current) {
-      fetchDashboardData();
-    }
-  }, [translationsLoaded]);
+    dashboardGetUtils(callbackDash, setIsLoading);
+  }, [translationsLoaded, translateStats]);
 
   // Show loading while checking authentication
   if (status === 'loading' || !translationsLoaded) {

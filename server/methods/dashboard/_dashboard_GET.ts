@@ -1,19 +1,12 @@
-import { ERequest, EResponse } from "../../types";
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
-import Pet from '@/models/Pet';
-import Appointment from '@/models/Appointment';
-import Report from '@/models/Report';
 import dbConnect from '@/lib/mongodb';
+import Appointment from '@/models/Appointment';
+import Pet from '@/models/Pet';
+import Report from '@/models/Report';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {
-    // Check authentication
-    const authUser = req.authResponse;
-    if (!session) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
+    console.log("Auth",req.authResponse)
     await dbConnect();
 
     // Get today's date range

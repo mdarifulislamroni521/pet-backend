@@ -1,7 +1,7 @@
-import { hasPermission, UserRole } from "@/lib/permissions";
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
+import { hasPermission, UserRole } from "@/lib/permissions";
 import Patient from '@/models/Patient';
+import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {

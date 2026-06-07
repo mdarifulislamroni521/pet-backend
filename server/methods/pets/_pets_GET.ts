@@ -6,14 +6,13 @@ import Pet from '@/models/Pet';
 export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
-    
     if (!authUser?.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
     await dbConnect();
     const pets = await Pet.find({}).sort({ createdAt: -1 });
-    return res.status(400).json(pets);
+    return res.status(200).json(pets);
   } catch (error) {
     console.error('Error fetching pets:', error);
     return res.status(500).json({ error: 'Failed to fetch pets' });

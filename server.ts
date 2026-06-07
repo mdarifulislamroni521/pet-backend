@@ -4,7 +4,6 @@ import express from 'express';
 import next from 'next';
 import dbConnect from './lib/mongodb';
 import handlers from './server/handlers';
-import authRoutes from './server/routes/auth';
 import ServerStartup from './server/startup';
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -24,9 +23,6 @@ app.prepare().then(() => {
   dbConnect().catch(err => {
     console.error('Failed to connect to MongoDB', err);
   });
-
-  // Custom Express API Routes
-  server.use('/api/auth', authRoutes);
 
   // Initialize and mount all converted routes
   ServerStartup();

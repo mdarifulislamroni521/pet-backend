@@ -1,6 +1,6 @@
-import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import AIModel from '@/models/AIModel';
+import { ERequest, EResponse } from "../../types";
 
 // GET all AI models
 export async function GET(req: ERequest, res: EResponse) {
@@ -70,7 +70,7 @@ export async function POST(req: ERequest, res: EResponse) {
 
   } catch (error) {
     console.error('Error creating AI model:', error);
-    return res.status(500).json(
+    return res.status(200).json(
       { 
         success: false, 
         error: 'Failed to create AI model',

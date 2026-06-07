@@ -1,8 +1,6 @@
-import { ERequest, EResponse } from "../../types";
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
-import AIResult from '@/models/AIResult';
 import dbConnect from '@/lib/mongodb';
+import AIResult from '@/models/AIResult';
+import { ERequest, EResponse } from "../../types";
 
 // GET - Debug endpoint to check all AI results in database
 export async function GET(req: ERequest, res: EResponse) {
