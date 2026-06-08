@@ -1,15 +1,11 @@
 {
-  "name": "ai-vet",
+  "name": "ai-vet-backend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "tsx watch server.ts",
-    "build": "next build --turbopack",
-    "build:vercel": "SKIP_LINTING=true SKIP_TYPE_CHECK=true next build --turbopack",
     "start": "NODE_ENV=production tsx server.ts",
-    "lint": "next lint",
-    "seed": "tsx scripts/seed-db.ts",
-    "test:ai-results": "tsx scripts/test-ai-results.ts"
+    "seed": "tsx scripts/seed-db.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -20,32 +16,19 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.3",
-    "jspdf": "^4.0.0",
-    "lucide-react": "^0.555.0",
     "mongodb": "^6.18.0",
-    "mongoose": "^9.0.0",
-    "next": "^15.5.12",
-    "next-intl": "^4.3.6",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
-    "react-hot-toast": "^2.6.0"
+    "mongoose": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongodb": "^4.0.6",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.9",
-    "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.4",
     "typescript": "^5"

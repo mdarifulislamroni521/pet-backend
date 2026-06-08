@@ -1,50 +1,41 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import 'dotenv/config';
 import express from 'express';
-import next from 'next';
 import dbConnect from './lib/mongodb';
 import handlers from './server/handlers';
 import ServerStartup from './server/startup';
 
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const server = express();
 
-app.prepare().then(() => {
-  const server = express();
+// Middleware
 
-  // Middleware
-  server.use(cors());
-  server.use(express.json());
-  server.use(express.urlencoded({ extended: true }));
-  server.use(cookieParser());
+const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500'];
 
-  // Connect to MongoDB
-  dbConnect().catch(err => {
-    console.error('Failed to connect to MongoDB', err);
-  });
-
-  // Initialize and mount all converted routes
-  ServerStartup();
-  server.use(handlers.cpRoutesHandler);
-
-  // Fallback to Next.js handler for all other routes
-  server.use(async (req, res, next) => { 
-    // Trigger nodemon restart
-    try {
-      await handle(req, res);
-    } catch (err: any) {
-      console.error('Next.js handle error:', err);
-      res.status(500).send(err.stack || err.toString());
+server.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-  });
+  }
+}));
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(cookieParser());
 
-  const PORT = process.env.PORT || 3000;
-  
-  server.listen(PORT, () => {
-    console.log(`> Ready on http://localhost:${PORT}`);
-  });
-}).catch((err) => {
-  console.error('Error starting server:', err);
-  process.exit(1);
+// Connect to MongoDB
+dbConnect().catch(err => {
+  console.error('Failed to connect to MongoDB', err);
+});
+
+// Initialize and mount all converted routes
+ServerStartup();
+server.use(handlers.cpRoutesHandler);
+
+const PORT = process.env.PORT || 3500;
+
+server.listen(PORT, () => {
+  console.log(`> Ready on http://localhost:${PORT}`);
 });
