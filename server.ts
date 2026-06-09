@@ -9,7 +9,14 @@ import ServerStartup from './server/startup';
 const server = express();
 
 // Middleware
-const allowedOrigins = process.env.allowedOrigins && JSON.parse(process.env.allowedOrigins.replace(/'/g, '"')) || ['http://localhost:3000', ];
+let allowedOrigins = ['http://localhost:3000'];
+if (process.env.allowedOrigins) {
+  try {
+    allowedOrigins = JSON.parse(process.env.allowedOrigins.replace(/'/g, '"'));
+  } catch (e) {
+    allowedOrigins = process.env.allowedOrigins.split(',').map(s => s.trim());
+  }
+}
 
 server.use(cors({
   origin: function (origin, callback) {
