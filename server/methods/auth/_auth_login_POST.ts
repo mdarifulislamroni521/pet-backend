@@ -49,23 +49,23 @@ const authLoginPOST = async (req: ERequest, res: EResponse) => {
     res.cookie("access_token", token, {
       maxAge: 30 * (24 * 60 * 60 * 1000), // 30 Days
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
     
     // Legacy token cookie for frontend backward compatibility
     res.cookie("token", token, {
       maxAge: 30 * (24 * 60 * 60 * 1000),
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     res.cookie("user_name", user.name, {
       maxAge: 30 * (24 * 60 * 60 * 1000), // 30 Days
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     return res.status(201).json(response);

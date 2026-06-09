@@ -3,10 +3,12 @@ import { NextRequest } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
 import Pet from '@/models/Pet';
+import { EResponse } from '@/server/types';
 
 // GET single owner by ID
 export async function GET(
-  request: NextRequest,
+  req: NextRequest,
+  res: EResponse,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -42,7 +44,8 @@ export async function GET(
 
 // PUT update owner
 export async function PUT(
-  request: NextRequest,
+  req: NextRequest,
+  res: EResponse,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {

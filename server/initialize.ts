@@ -20,6 +20,7 @@ const initialize = async (
   next: ENextFunction
 ) => {
   try {
+    console.log("req.cookies",req.cookies);
     req.authResponse = null;
     req.host_name = `${await getCookieHost(String(req.get("host")))}`;
     req.req_domain = `${
@@ -34,8 +35,8 @@ const initialize = async (
           const cookieValue = receivedCookies[cookieName];
           res.cookie(cookieName, cookieValue, {
             maxAge: 30 * (24 * 60 * 60 * 1000), // 30 Days
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
             domain: `${req.host_name}`,
           });
         });
@@ -52,8 +53,8 @@ const initialize = async (
       const cookieValue = receivedCookies[cookieName];
       res.cookie(cookieName, cookieValue, {
         maxAge: 30 * (24 * 60 * 60 * 1000), // 30 Days
-        secure: false,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "none",
         domain: `${req.host_name}`,
       });
     });
