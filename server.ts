@@ -34,8 +34,11 @@ dbConnect().catch(err => {
 ServerStartup();
 server.use(handlers.cpRoutesHandler);
 
-const PORT = process.env.PORT || 3500;
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3500;
+  server.listen(PORT, () => {
+    console.log(`> Ready on http://localhost:${PORT}`);
+  });
+}
 
-server.listen(PORT, () => {
-  console.log(`> Ready on http://localhost:${PORT}`);
-});
+export default server;
