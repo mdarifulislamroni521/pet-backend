@@ -2,8 +2,7 @@
   "name": "ai-vet-backend",
   "version": "1.0.0",
   "private": true,
-  "main":"./server.ts",
-  "type": "module",
+  "main": "./server.ts",
   "scripts": {
     "dev": "tsx watch server.ts",
     "start": "NODE_ENV=production tsx server.ts",
