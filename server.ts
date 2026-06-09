@@ -9,12 +9,10 @@ import ServerStartup from './server/startup';
 const server = express();
 
 // Middleware
-
-const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500', 'file:///Volumes/MyStroage/Projects/web/AiPet/Petappo/index.html',"app://-"];
+const allowedOrigins = process.env.allowedOrigins && JSON.parse(process.env.allowedOrigins.replace(/'/g, '"')) || ['http://localhost:3000', ];
 
 server.use(cors({
   origin: function (origin, callback) {
-    console.log("reqOrigin", origin);
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {

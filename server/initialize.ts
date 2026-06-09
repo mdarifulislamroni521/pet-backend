@@ -1,4 +1,4 @@
-import { ENextFunction, ERequest, EResponse } from "../types";
+import { ENextFunction, ERequest, EResponse } from "./types";
 import auth from "./middlewares/auth";
 const dev = process.env.NODE_ENV === "development" ? true : false;
 
@@ -20,7 +20,6 @@ const initialize = async (
   next: ENextFunction
 ) => {
   try {
-    console.log("req.cookies",req.cookies);
     req.authResponse = null;
     req.host_name = `${await getCookieHost(String(req.get("host")))}`;
     req.req_domain = `${
@@ -48,7 +47,6 @@ const initialize = async (
     next();
   } catch {
     const receivedCookies = req.cookies || {};
-    console.log("receivedCookies", receivedCookies);
     Object.keys(receivedCookies).forEach((cookieName) => {
       const cookieValue = receivedCookies[cookieName];
       res.cookie(cookieName, cookieValue, {

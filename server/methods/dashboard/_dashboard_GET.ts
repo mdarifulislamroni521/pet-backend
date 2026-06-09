@@ -6,7 +6,6 @@ import { ERequest, EResponse } from "../../types";
 
 export async function GET(req: ERequest, res: EResponse) {
   try {
-    console.log("Auth",req.authResponse)
     await dbConnect();
 
     // Get today's date range
@@ -173,7 +172,6 @@ export async function GET(req: ERequest, res: EResponse) {
     .limit(4)
     .select('_id petName petSpecies ownerName appointmentTime appointmentType status appointmentDate');
     
-    console.log('Upcoming appointments found:', upcomingAppointments.length);
 
     const formattedUpcomingAppointments = upcomingAppointments.map((appointment: any) => ({
       id: appointment._id.toString(),
@@ -184,7 +182,6 @@ export async function GET(req: ERequest, res: EResponse) {
       status: appointment.status === 'confirmed' ? 'confirmed' : 'pending'
     }));
     
-    console.log('Formatted upcoming appointments:', formattedUpcomingAppointments);
 
     return res.status(200).json({
       stats,
