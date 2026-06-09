@@ -1,19 +1,17 @@
+import { ERequest, EResponse } from "../../types";
 
 import { MongoClient, ObjectId } from 'mongodb';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
     if (!authUser?.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const { id } = await params;
+    const id = req.params.id as string;
     
-    if (!ObjectId.isValid(id)) {
+    if (!ObjectId.isValid(id as string)) {
       return res.status(400).json(
         { success: false, error: 'Invalid workflow ID' });
     }
@@ -23,7 +21,7 @@ export async function GET(
     const db = client.db();
     const workflowsCollection = db.collection('workflows');
     
-    const workflow = await workflowsCollection.findOne({ _id: new ObjectId(id) });
+    const workflow = await workflowsCollection.findOne({ _id: new ObjectId(id as string) });
     
     await client.close();
     
@@ -46,20 +44,17 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
     if (!authUser?.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const { id } = await params;
+    const id = req.params.id as string;
     const body = req.body;
     
-    if (!ObjectId.isValid(id)) {
+    if (!ObjectId.isValid(id as string)) {
       return res.status(400).json(
         { success: false, error: 'Invalid workflow ID' });
     }
@@ -75,7 +70,7 @@ export async function PUT(
     };
     
     const result = await workflowsCollection.updateOne(
-      { _id: new ObjectId(id) },
+      { _id: new ObjectId(id as string) },
       { $set: updateData }
     );
     
@@ -101,20 +96,17 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
     if (!authUser?.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const { id } = await params;
-    console.log('DELETE request for workflow ID:', id);
+    const id = req.params.id as string;
+    console.log('DELETE req for workflow ID:', id);
     
-    if (!ObjectId.isValid(id)) {
+    if (!ObjectId.isValid(id as string)) {
       console.log('Invalid ObjectId:', id);
       return res.status(400).json(
         { success: false, error: 'Invalid workflow ID' });
@@ -125,8 +117,8 @@ export async function DELETE(
     const db = client.db();
     const workflowsCollection = db.collection('workflows');
     
-    console.log('Attempting to delete workflow with ObjectId:', new ObjectId(id));
-    const result = await workflowsCollection.deleteOne({ _id: new ObjectId(id) });
+    console.log('Attempting to delete workflow with ObjectId:', new ObjectId(id as string));
+    const result = await workflowsCollection.deleteOne({ _id: new ObjectId(id as string) });
     console.log('Delete result:', result);
     
     await client.close();

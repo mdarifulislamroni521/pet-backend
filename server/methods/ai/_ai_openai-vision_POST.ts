@@ -4,7 +4,7 @@ export async function POST(req: ERequest, res: EResponse) {
   try {
     const { messages, model, maxTokens, temperature, apiKey } = req.body;
     
-    console.log('OpenAI Vision API - Received request:');
+    console.log('OpenAI Vision API - Received req:');
     console.log('Model:', model);
     console.log('Messages count:', messages?.length);
     console.log('First message content types:', messages?.[0]?.content?.map((c: any) => c.type));

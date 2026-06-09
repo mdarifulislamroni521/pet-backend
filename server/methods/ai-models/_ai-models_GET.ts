@@ -139,7 +139,7 @@ export async function PUT(req: ERequest, res: EResponse) {
 export async function DELETE(req: ERequest, res: EResponse) {
   try {
     await dbConnect();
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const id = searchParams.get('id');
 
     if (!id) {

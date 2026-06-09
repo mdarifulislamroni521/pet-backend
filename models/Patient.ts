@@ -106,7 +106,7 @@ const patientSchema = new mongoose.Schema<IPatient>(
 );
 
 // Pre-save middleware to generate patient ID
-patientSchema.pre('save', async function(next) {
+patientSchema.pre('save', async function() {
   // Always generate patientId if it doesn't exist (for new documents)
   if (!this.patientId) {
     try {
@@ -132,7 +132,6 @@ patientSchema.pre('save', async function(next) {
       this.patientId = `PAT-${Date.now().toString().slice(-6)}`;
     }
   }
-  next();
 });
 
 // Prevent multiple model initialization in development

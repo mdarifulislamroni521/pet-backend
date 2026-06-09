@@ -1,16 +1,12 @@
-import { NextRequest } from 'next/server';
+import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
 import Pet from '@/models/Pet';
-import { EResponse } from '@/server/types';
+
 
 // GET single owner by ID
-export async function GET(
-  req: NextRequest,
-  res: EResponse,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -19,7 +15,7 @@ export async function GET(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     
     const owner = await Owner.findById(id);
     
@@ -43,11 +39,7 @@ export async function GET(
 }
 
 // PUT update owner
-export async function PUT(
-  req: NextRequest,
-  res: EResponse,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -56,7 +48,7 @@ export async function PUT(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     const data = req.body;
     
     const owner = await Owner.findByIdAndUpdate(
@@ -79,10 +71,7 @@ export async function PUT(
 }
 
 // DELETE owner
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -91,7 +80,7 @@ export async function DELETE(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     
     // Check if owner has any pets
     const owner = await Owner.findById(id);

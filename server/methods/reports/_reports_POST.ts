@@ -22,7 +22,7 @@ export async function GET(req: ERequest, res: EResponse) {
 export async function POST(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
-    if (!session) {
+    if (!req.authResponse) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
@@ -33,8 +33,8 @@ export async function POST(req: ERequest, res: EResponse) {
     const reportData: any = {
       petId: body.petId,
       petName: body.petName || '',
-      vetId: body.vetId || session.user?.id || 'default-vet-id',
-      vetName: body.vetName || session.user?.name || 'Dr. Demo User',
+      vetId: body.vetId || req.authResponse?.userID || 'default-vet-id',
+      vetName: body.vetName || req.authResponse?.email || 'Dr. Demo User',
       reportType: body.reportType,
       reportDate: body.reportDate ? new Date(body.reportDate) : new Date(),
       status: body.status === 'in progress' ? 'in-progress' : (body.status || 'pending'),

@@ -1,13 +1,11 @@
+import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
 // GET single user by ID (admin only)
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -23,7 +21,7 @@ export async function GET(
       return res.status(403).json({ error: 'Forbidden: Admin access required' });
     }
 
-    const { id } = await params;
+    const id = req.params.id as string;
     const user = await User.findById(id).select('-password');
     
     if (!user) {
@@ -40,10 +38,7 @@ export async function GET(
 }
 
 // PUT update user (admin only)
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -59,7 +54,7 @@ export async function PUT(
       return res.status(403).json({ error: 'Forbidden: Admin access required' });
     }
 
-    const { id } = await params;
+    const id = req.params.id as string;
     const data = req.body;
 
     // Validate role if provided
@@ -112,10 +107,7 @@ export async function PUT(
 }
 
 // DELETE user (admin only)
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -131,7 +123,7 @@ export async function DELETE(
       return res.status(403).json({ error: 'Forbidden: Admin access required' });
     }
 
-    const { id } = await params;
+    const id = req.params.id as string;
 
     // Prevent admin from deleting themselves
     if (currentUser._id.toString() === id) {

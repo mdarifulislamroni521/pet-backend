@@ -120,7 +120,7 @@ ownerSchema.virtual('fullAddress').get(function() {
 });
 
 // Pre-save middleware to generate owner ID
-ownerSchema.pre('save', async function(next) {
+ownerSchema.pre('save', async function() {
   if (!this.ownerId) {
     try {
       const OwnerModel = this.constructor as any;
@@ -140,7 +140,6 @@ ownerSchema.pre('save', async function(next) {
       this.ownerId = `OWN-${Date.now().toString().slice(-6)}`;
     }
   }
-  next();
 });
 
 // Ensure virtual fields are included in JSON

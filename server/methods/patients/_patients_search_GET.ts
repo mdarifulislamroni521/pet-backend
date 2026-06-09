@@ -6,7 +6,7 @@ export async function GET(req: ERequest, res: EResponse) {
   try {
     await dbConnect();
     
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const query = searchParams.get('q') || '';
     const limit = parseInt(searchParams.get('limit') || '10');
     

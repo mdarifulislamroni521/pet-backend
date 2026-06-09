@@ -45,7 +45,7 @@ export async function GET(req: ERequest, res: EResponse) {
     if (!authUser?.email) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const patientId = searchParams.get('patientId');
     const status = searchParams.get('status');
     

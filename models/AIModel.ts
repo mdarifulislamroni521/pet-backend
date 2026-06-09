@@ -129,7 +129,7 @@ const aiModelSchema = new mongoose.Schema<IAIModel>(
 aiModelSchema.pre('save', async function() {
   if (this.isActive) {
     // Set all other models to inactive
-    await this.constructor.updateMany(
+    await (this.constructor as mongoose.Model<any>).updateMany(
       { _id: { $ne: this._id } },
       { isActive: false }
     );

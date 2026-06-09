@@ -8,14 +8,14 @@ export async function GET(req: ERequest, res: EResponse) {
   try {
     // Check authentication
     const authUser = req.authResponse;
-    if (!session) {
+    if (!req.authResponse) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
     await dbConnect();
 
     // Get query parameters for pagination
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const limit = parseInt(searchParams.get('limit') || '100');
     const skip = parseInt(searchParams.get('skip') || '0');
 
@@ -42,7 +42,7 @@ export async function GET(req: ERequest, res: EResponse) {
     ]);
 
     // Build recent activities
-    const recentActivities = [];
+    const recentActivities: any[] = [];
 
     // Add recent appointments
     recentAppointments.forEach(appointment => {

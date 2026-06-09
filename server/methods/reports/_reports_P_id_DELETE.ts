@@ -1,11 +1,9 @@
+import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Report from '@/models/Report';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -14,7 +12,7 @@ export async function GET(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     
     const report = await Report.findById(id).lean();
     
@@ -30,10 +28,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -42,7 +37,7 @@ export async function PUT(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     const body = req.body;
     
     const updatedReport = await Report.findByIdAndUpdate(
@@ -64,10 +59,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
     
@@ -76,7 +68,7 @@ export async function DELETE(
     }
 
     await dbConnect();
-    const { id } = await params;
+    const id = req.params.id as string;
     
     const deletedReport = await Report.findByIdAndDelete(id);
     

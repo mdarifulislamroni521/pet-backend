@@ -14,7 +14,7 @@ export async function GET(req: ERequest, res: EResponse) {
 
     await dbConnect();
 
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const search = searchParams.get('search') || '';
     const limit = parseInt(searchParams.get('limit') || '10');
 

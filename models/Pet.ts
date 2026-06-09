@@ -162,7 +162,7 @@ const petSchema = new mongoose.Schema<IPet>(
 );
 
 // Pre-save middleware to generate pet ID
-petSchema.pre('save', async function(next) {
+petSchema.pre('save', async function() {
   if (!this.petId) {
     try {
       const PetModel = this.constructor as any;
@@ -183,7 +183,6 @@ petSchema.pre('save', async function(next) {
       this.petId = `PET-${Date.now().toString().slice(-6)}`;
     }
   }
-  next();
 });
 
 // Prevent multiple model initialization in development

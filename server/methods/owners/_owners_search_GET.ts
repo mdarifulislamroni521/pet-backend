@@ -1,11 +1,12 @@
+import { ERequest, EResponse } from "../../types";
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';
 
-export async function GET(request: Request) {
+export async function GET(req: ERequest, res: EResponse) {
   try {
     await dbConnect();
     
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const query = searchParams.get('q') || '';
     const limit = parseInt(searchParams.get('limit') || '20');
     

@@ -1,3 +1,4 @@
+import { ERequest, EResponse } from "../../types";
 
 import dbConnect from '@/lib/mongodb';
 import Owner from '@/models/Owner';

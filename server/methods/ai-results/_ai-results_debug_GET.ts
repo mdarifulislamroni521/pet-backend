@@ -7,13 +7,13 @@ export async function GET(req: ERequest, res: EResponse) {
   try {
     const authUser = req.authResponse;
 
-    if (!session) {
+    if (!req.authResponse) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
     await dbConnect();
 
-    const { searchParams } = new URL(request.url);
+    const searchParams = { get: (key: string) => req.query[key] as string };
     const patientId = searchParams.get('patientId');
     const type = searchParams.get('type');
 
