@@ -4,8 +4,9 @@
   "private": true,
   "main": "./server.ts",
   "scripts": {
+    "build": "tsc && tsc-alias",
     "dev": "tsx watch server.ts",
-    "start": "NODE_ENV=production tsx server.ts",
+    "start": "NODE_ENV=production node dist/server.js",
     "seed": "tsx scripts/seed-db.ts"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "@types/node": "^20",
     "eslint": "^9",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.17",
     "tsx": "^4.20.4",
     "typescript": "^5"
   },
